@@ -52,4 +52,28 @@ To open different folders or editors you can use the flags bellow. Additionally 
 |   -e | Custom editor         |
 |   -f | Custom git folder     |
 
+#### Example Usage:
 
+Open the current folder with default editor:
+
+```
+ged -f .
+```
+
+Open default folder with custom editor:
+
+```
+ged -e code
+```
+
+Open a custom folder with costum editor:
+
+```
+ged -e code -f /path/to/folder
+```
+
+Edit the current folder and add a custom commit:
+
+```
+ged -f . -c
+```
