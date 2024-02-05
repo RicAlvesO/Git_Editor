@@ -1,5 +1,29 @@
 #!/bin/sh
 
+custom_commit=0
+
+# Parse command line options
+while getopts ":e:f:c:" opt; do
+  case $opt in
+    e)
+      # Override GN_EDITOR if -e flag is provided
+      GN_EDITOR="$OPTARG"
+      ;;
+    f)
+      # Override GN_FOLDER if -f flag is provided
+      GN_FOLDER="$OPTARG"
+      ;;
+    c)
+      # Override default commit message if -c flag is provided
+      custom_commit=1
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
 # Save current folder
 current_folder=$(pwd)
 
@@ -21,7 +45,7 @@ if [ -z "$GN_FOLDER" ]; then
     read -r notes_folder_input
 
     # Set notes_folder in the appropriate configuration file
-    echo "export GN_FOLDER=$notes_folder_input" >> "$shell_config_file"
+    echo "export GN_FOLDER='$notes_folder_input'" >> "$shell_config_file"
     # Reload the configuration file
     reload=1
 fi
@@ -33,7 +57,7 @@ if [ -z "$GN_EDITOR" ]; then
     read -r default_editor_input
 
     # Set default_editor in the appropriate configuration file
-    echo "export GN_EDITOR=$default_editor_input" >> "$shell_config_file"
+    echo "export GN_EDITOR='$default_editor_input'" >> "$shell_config_file"
     # Reload the configuration file
     reload=1
 fi
@@ -63,9 +87,16 @@ git pull
 # Open default editor
 $default_editor .
 
+commit_message="GitNotes Auto Save"
+
+if [ "$reload" -eq 1 ]; then
+    echo "Please provide the commit message:"
+    read -r commit_message
+fi
+
 # Save the repo
 git add .
-git commit -m "GitNotes Auto Save"
+git commit -m "$commit_message"
 git push
 
 # Return to previous folder
