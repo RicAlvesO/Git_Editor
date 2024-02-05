@@ -3,7 +3,7 @@
 custom_commit=0
 
 # Parse command line options
-while getopts ":e:f:c:" opt; do
+while getopts ":e:f:c" opt; do
   case $opt in
     e)
       # Override GN_EDITOR if -e flag is provided
