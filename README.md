@@ -41,3 +41,13 @@ source $HOME/.zshrc
 To use this program, after the installation process is completed, simply type `gn` in your terminal. 
 This will `pull` your notes from the upstream repository and open your desired editor.
 Once you completed the desired changes simply exit the editor and the changes will be automatically added to GitHub.
+
+### Flags
+
+| Flag |      Description      |
+|------|-----------------------|
+|   -c | Custom commit message |
+|   -e | Custom editor         |
+|   -f | Custom git folder     |
+
+
