@@ -89,7 +89,7 @@ $default_editor .
 
 commit_message="GitNotes Auto Save"
 
-if [ "$reload" -eq 1 ]; then
+if [ "$custom_commit" -eq 1 ]; then
     echo "Please provide the commit message:"
     read -r commit_message
 fi
